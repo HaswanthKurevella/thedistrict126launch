@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Launching Page</title>
+    <style>
+        body {
+            background-color: #772432;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: #FFFFFF;
+        }
+
+        #launchCard {
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.5s; /* Add transition for a smooth effect */
+        }
+
+        #launchButton {
+            background-color: #004165;
+            color:#FFFFFF;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #launchButton:hover {
+            background-color: #F2DF74;
+        }
+
+        #countdown {
+            font-size: 80px;
+            margin-top: 20px;
+            white-space: nowrap; /* Keep countdown in a single line */
+            text-align: center;
+            justify-content: center;
+
+        }
+
+        #launchCard h1, #launchCard p {
+            color: black; /* Set h1 and p text color to black */
+            display: block; /* Display h1 and p initially */
+        }
+
+        #launchText {
+            display: none;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="launchCard">
+    <h1>Welcome to Our Website!</h1>
+    <p>The District 126</p><br>
+    <button id="launchButton" onclick="startCountdown()">Launch</button>
+    <p id="countdown"></p>
+    <p id="launchText"></p>
+</div>
+
+<script>
+    var countdownValue = 10; // initial countdown value in seconds
+
+    function startCountdown() {
+        var launchCard = document.getElementById('launchCard');
+        var launchButton = document.getElementById('launchButton');
+        var countdownElement = document.getElementById('countdown');
+        var launchText = document.getElementById('launchText');
+
+        // Hide h1, p, and button
+        launchCard.querySelector('h1').style.display = 'none';
+        launchCard.querySelector('p').style.display = 'none';
+        launchButton.style.display = 'none';
+
+        // Display countdown
+        countdownElement.style.display = 'block';
+
+        // Increase card size
+        launchCard.style.padding = '40px';
+
+        // Play audio
+        var audio = new Audio('./videoplayback.mp3');
+        audio.loop = true;
+        audio.play();
+
+        var countdownInterval = setInterval(function () {
+            countdownElement.textContent = countdownValue +'        ';
+
+            if (countdownValue === 1) {
+                clearInterval(countdownInterval);
+                // Show launch text
+                launchText.style.display = 'block';
+
+                // Redirect after a short delay
+                setTimeout(function () {
+                    // Set the URL to redirect
+                    window.location.href = "https://district126.org/";
+                }, 1000); // Delay in milliseconds
+            } else {
+                countdownValue--;
+            }
+        }, 1000); // Update every second
+    }
+</script>
+
+</body>
+</html>
